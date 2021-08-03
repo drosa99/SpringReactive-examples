@@ -6,17 +6,17 @@ import reactor.core.publisher.Mono;
 
 public class PersonRepositoryImpl implements PersonRepository {
 
-		Person michael = new Person(1, "Michael", "Weston");
-		Person fiona = new Person(2, "Fiona", "Glenane");
-		Person jesse = new Person(3, "Jesse", "Porter");
+    Person michael = new Person(1, "Michael", "Weston");
+    Person fiona = new Person(2, "Fiona", "Glenane");
+    Person jesse = new Person(3, "Jesse", "Porter");
 
-		@Override
-		public Mono<Person> getById(Integer id) {
-				return Mono.just(michael);
-		}
+    @Override
+    public Mono<Person> getById(Integer id) {
+        return findAll().filter(person -> person.getId().equals(id)).next();
+    }
 
-		@Override
-		public Flux<Person> findAll() {
-				return Flux.just(michael, fiona, jesse);
-		}
+    @Override
+    public Flux<Person> findAll() {
+        return Flux.just(michael, fiona, jesse);
+    }
 }
